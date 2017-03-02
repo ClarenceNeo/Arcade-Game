@@ -4,7 +4,15 @@ var Enemy = function() {
     // 我们已经提供了一个来帮助你实现更多
 
     this.x = -100 - Math.random() * 100;
-    this.y = 60;
+    var y = Math.random();
+    if (y < 0.33) {
+        this.y = 60;
+    } else if (y > 0.66) {
+        this.y = 145;
+    } else {
+        this.y = 225;
+    }
+
     this.speed = 100 + Math.random()*150;
 
     // 敌人的图片或者雪碧图，用一个我们提供的工具函数来轻松的加载文件
@@ -29,38 +37,40 @@ Enemy.prototype.render = function() {
 // 现在实现你自己的玩家类
 // 这个类需要一个 update() 函数， render() 函数和一个 handleInput()函数
 var Player = function() {
-    this.x = 0;
-    this.y = 0;
+    this.x = 400;
+    this.y = 400;
 
     this.sprite = 'images/char-boy.png'
 };
 
-Player.prototype.update = function(dt) {
+Player.prototype.update = function() {
 
 }
+
 Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 }
+
 Player.prototype.handleInput = function(move) {
-    if (move == 'left'){
+    if (move == 'left') {
         this.x -= 100;
-    } else if (move == 'right'){
+    } else if (move == 'right') {
         this.x += 100;
-    } else if (move == 'down'){
+    } else if (move == 'down') {
         this.y += 80;
-    } else if (move == 'up'){
+    } else if (move == 'up') {
         this.y -= 80;
-    }
+    };
 
     if (this.x > 400) {
         this.x = 400;
-    } else if (this.y > 400){
+    } else if (this.y > 400) {
         this.y = 400;
     } else if (this.x < 0) {
         this.x = 0;
     } else if (this.y < 0) {
         this.y = 0;
-    }
+    };
 
 }
 
@@ -68,16 +78,14 @@ Player.prototype.handleInput = function(move) {
 // 现在实例化你的所有对象
 // 把所有敌人的对象都放进一个叫 allEnemies 的数组里面
 // 把玩家对象放进一个叫 player 的变量里面
+var allEnemies = [];
 
-var bug0 = new Enemy();
+setInterval(function(){
+    var enemy = new Enemy();
+    allEnemies.push(enemy);
+},1000)
 
-var bug1 = new Enemy();
-bug1.y += 85;
-
-var bug2 = new Enemy();
-bug2.y += 165;
 var play = new Player();
-var allEnemies = [bug0,bug1,bug2];
 var player = play;
 
 
