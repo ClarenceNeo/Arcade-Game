@@ -29,8 +29,8 @@ Enemy.prototype.render = function() {
 // 现在实现你自己的玩家类
 // 这个类需要一个 update() 函数， render() 函数和一个 handleInput()函数
 var Player = function() {
-    this.x = 80;
-    this.y = 80;
+    this.x = 0;
+    this.y = 0;
 
     this.sprite = 'images/char-boy.png'
 };
@@ -42,9 +42,26 @@ Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 }
 Player.prototype.handleInput = function(move) {
-    // if (move = 'left'){
-    //     ctx.drawImage(Resources.get(this.sprite), this.x-10, this.y);
-    // }
+    if (move == 'left'){
+        this.x -= 100;
+    } else if (move == 'right'){
+        this.x += 100;
+    } else if (move == 'down'){
+        this.y += 80;
+    } else if (move == 'up'){
+        this.y -= 80;
+    }
+
+    if (this.x > 400) {
+        this.x = 400;
+    } else if (this.y > 400){
+        this.y = 400;
+    } else if (this.x < 0) {
+        this.x = 0;
+    } else if (this.y < 0) {
+        this.y = 0;
+    }
+
 }
 
 
