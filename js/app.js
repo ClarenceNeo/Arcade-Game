@@ -13,7 +13,7 @@ var Enemy = function() {
         this.y = 225;
     }
 
-    this.speed = 100 + Math.random()*150;
+    this.speed = 150 + Math.random()*200;
 
     // 敌人的图片或者雪碧图，用一个我们提供的工具函数来轻松的加载文件
     this.sprite = 'images/enemy-bug.png';
@@ -26,7 +26,9 @@ Enemy.prototype.update = function(dt) {
     // 你应该给每一次的移动都乘以 dt 参数，以此来保证游戏在所有的电脑上
     // 都是以同样的速度运行的
     this.x += this.speed * dt;
-
+    if (this.x > 600) {
+        this.x = -100;
+    }
 };
 
 // 此为游戏必须的函数，用来在屏幕上画出敌人，
@@ -80,10 +82,15 @@ Player.prototype.handleInput = function(move) {
 // 把玩家对象放进一个叫 player 的变量里面
 var allEnemies = [];
 
-setInterval(function(){
+for (i = 0; i < 5; i++) {
     var enemy = new Enemy();
     allEnemies.push(enemy);
-},1000)
+}
+
+// setInterval(function(){
+//     var enemy = new Enemy();
+//     allEnemies.push(enemy);
+// },700)
 
 var play = new Player();
 var player = play;
