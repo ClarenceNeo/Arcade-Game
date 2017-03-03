@@ -2,7 +2,6 @@
 var Enemy = function() {
     // 要应用到每个敌人的实例的变量写在这里
     // 我们已经提供了一个来帮助你实现更多
-
     this.x = -150 - Math.random() * 150;
     this.y = Math.ceil(Math.random() * 3) * 75;
     this.speed = 180 + Math.random() * 200;
@@ -10,7 +9,6 @@ var Enemy = function() {
     // 敌人的图片或者雪碧图，用一个我们提供的工具函数来轻松的加载文件
     this.sprite = 'images/enemy-bug.png';
 };
-
 
 // 此为游戏必须的函数，用来更新敌人的位置
 // 参数: dt ，表示时间间隙
@@ -38,14 +36,12 @@ var Player = function() {
 };
 
 Player.prototype.update = function() {
-
     for (var i = 0; i < allEnemies.length; i++) {
         if (this.y == allEnemies[i].y && this.x > allEnemies[i].x && this.x < allEnemies[i].x + 60) {
             this.x =202;
             this.y =375;
-      }
+        }
     }
-
 };
 
 Player.prototype.render = function() {
@@ -73,9 +69,7 @@ Player.prototype.handleInput = function(move) {
         this.y = 375;
         this.x = 202;
     }
-
 };
-
 
 // 现在实例化你的所有对象
 // 把所有敌人的对象都放进一个叫 allEnemies 的数组里面
