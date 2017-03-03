@@ -3,17 +3,9 @@ var Enemy = function() {
     // 要应用到每个敌人的实例的变量写在这里
     // 我们已经提供了一个来帮助你实现更多
 
-    this.x = -100 - Math.random() * 100;
-    var y = Math.random();
-    if (y < 0.33) {
-        this.y = 60;
-    } else if (y > 0.66) {
-        this.y = 145;
-    } else {
-        this.y = 225;
-    }
-
-    this.speed = 150 + Math.random()*200;
+    this.x = -150 - Math.random() * 150;
+    this.y = Math.ceil(Math.random() * 3) * 75;
+    this.speed = 180 + Math.random() * 200;
 
     // 敌人的图片或者雪碧图，用一个我们提供的工具函数来轻松的加载文件
     this.sprite = 'images/enemy-bug.png';
@@ -26,8 +18,9 @@ Enemy.prototype.update = function(dt) {
     // 你应该给每一次的移动都乘以 dt 参数，以此来保证游戏在所有的电脑上
     // 都是以同样的速度运行的
     this.x += this.speed * dt;
-    if (this.x > 600) {
-        this.x = -100;
+    if (this.x > 505) {
+        this.x = -101;
+        this.y = Math.ceil(Math.random() * 3) * 75;
     }
 };
 
@@ -39,61 +32,61 @@ Enemy.prototype.render = function() {
 // 现在实现你自己的玩家类
 // 这个类需要一个 update() 函数， render() 函数和一个 handleInput()函数
 var Player = function() {
-    this.x = 400;
-    this.y = 400;
-
-    this.sprite = 'images/char-boy.png'
+    this.x = 202;
+    this.y = 375;
+    this.sprite = 'images/char-boy.png';
 };
 
 Player.prototype.update = function() {
 
-}
+    for (var i = 0; i < allEnemies.length; i++) {
+        if (this.y == allEnemies[i].y && this.x > allEnemies[i].x && this.x < allEnemies[i].x + 60) {
+            this.x =202;
+            this.y =375;
+      }
+    }
+
+};
 
 Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-}
+};
 
 Player.prototype.handleInput = function(move) {
     if (move == 'left') {
-        this.x -= 100;
+        this.x -= 101;
     } else if (move == 'right') {
-        this.x += 100;
+        this.x += 101;
     } else if (move == 'down') {
-        this.y += 80;
+        this.y += 75;
     } else if (move == 'up') {
-        this.y -= 80;
-    };
+        this.y -= 75;
+    }
 
-    if (this.x > 400) {
-        this.x = 400;
-    } else if (this.y > 400) {
-        this.y = 400;
+    if (this.x > 404) {
+        this.x = 404;
+    } else if (this.y > 375) {
+        this.y = 375;
     } else if (this.x < 0) {
         this.x = 0;
-    } else if (this.y < 0) {
-        this.y = 0;
-    };
+    } else if (this.y < 60) {
+        this.y = 375;
+        this.x = 202;
+    }
 
-}
+};
 
 
 // 现在实例化你的所有对象
 // 把所有敌人的对象都放进一个叫 allEnemies 的数组里面
 // 把玩家对象放进一个叫 player 的变量里面
 var allEnemies = [];
-
 for (i = 0; i < 5; i++) {
     var enemy = new Enemy();
     allEnemies.push(enemy);
 }
 
-// setInterval(function(){
-//     var enemy = new Enemy();
-//     allEnemies.push(enemy);
-// },700)
-
-var play = new Player();
-var player = play;
+var player = new Player();
 
 
 // 这段代码监听游戏玩家的键盘点击事件并且代表将按键的关键数字送到 Play.handleInput()
