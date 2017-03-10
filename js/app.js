@@ -2,6 +2,10 @@
  * 这是运行游戏的主要逻辑，完成了游戏角色的生成。
  */
 
+/* 使用严格模式运行 */
+
+ "use strict"
+
 /* 这是我们的玩家要躲避的敌人 */
 var Enemy = function() {
     this.x = -150 - Math.random() * 150;
@@ -29,16 +33,20 @@ Enemy.prototype.render = function() {
 
 /* 实现自己的玩家类 */
 var Player = function() {
-    this.x = 202;
-    this.y = 375;
+    this.reset();
     this.sprite = 'images/char-boy.png';
 };
+
+/* 玩家初始位置 */
+Player.prototype.reset = function() {
+    this.x = 202;
+    this.y = 375;
+}
 
 Player.prototype.update = function() {
     for (var i = 0; i < allEnemies.length; i++) {
         if (this.y == allEnemies[i].y && this.x > allEnemies[i].x && this.x < allEnemies[i].x + 60) {
-            this.x =202;
-            this.y =375;
+            this.reset();
         }
     }
 };
@@ -66,14 +74,14 @@ Player.prototype.handleInput = function(move) {
     } else if (this.x < 0) {
         this.x = 0;
     } else if (this.y < 60) {
-        this.y = 375;
-        this.x = 202;
+        alert("恭喜您获得了胜利！！！")
+        this.reset();
     }
 };
 
 /* 实例化所有对象 */
 var allEnemies = [];
-for (i = 0; i < 5; i++) {
+for (var i = 0; i < 5; i++) {
     var enemy = new Enemy();
     allEnemies.push(enemy);
 }

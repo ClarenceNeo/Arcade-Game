@@ -20,7 +20,9 @@
 也可直接下载该项目到您的电脑，如下所示：
 
 ```
-$ cd /* 您的下载目录 */
+$ cd folder /* 您的下载目录 */
 $ git clone https://github.com/ClarenceNeo/Arcade-Game.git
 ```
+
+之后进入刚刚您的下载目录，打开「Arcade-Game」文件夹此为项目目录，打开 `index.html` 文件，就可以进入游戏了。
 
